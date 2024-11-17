@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
         speed = 6f;
         thruster.gameObject.SetActive(false);
         gameManager.UpdatePowerupText("");
+        gameManager.PlayPowerDown();
     }
 
     IEnumerator ShootingPowerDown()
@@ -107,6 +108,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(3f);
         shooting = 1;
         gameManager.UpdatePowerupText("");
+        gameManager.PlayPowerDown();
     }
 
     private void OnTriggerEnter2D(Collider2D whatIHit)
@@ -123,23 +125,27 @@ public class Player : MonoBehaviour
                     gameManager.UpdatePowerupText("Picked up Speed!");
                     thruster.gameObject.SetActive(true);
                     StartCoroutine(SpeedPowerDown());
+                    
                     break;
                 case 2:
                     //double shot
                     shooting = 2;
                     gameManager.UpdatePowerupText("Picked up Double Shot!");
                     StartCoroutine (ShootingPowerDown());
+                    
                     break;
                 case 3:
                     //triple shot
                     shooting = 3;
                     gameManager.UpdatePowerupText("Picked up Triple Shot!");
                     StartCoroutine(ShootingPowerDown());
+                    
                     break;
                 case 4:
                     //shield
                     gameManager.UpdatePowerupText("Picked up Shield!");
                     hasShield = true;
+                    
                     break;
             }
             Destroy(whatIHit.gameObject);
